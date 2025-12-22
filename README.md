@@ -1,4 +1,4 @@
-#Wallpaper Engine WallHaven plugin modification
+# Wallpaper Engine WallHaven plugin modification
 
 [Original plugin](https://steamcommunity.com/sharedfiles/filedetails/?id=2561179430)
 
