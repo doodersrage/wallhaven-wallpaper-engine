@@ -1,0 +1,181 @@
+{
+	"contentrating" : "Questionable",
+	"description" : "Random your wallpaper from wallhaven.\r\n\r\nAll the wallpaper comes from wallhaven.cc API. You can get your API key from that. \r\nIt is ok without API key. You can still get SFW and Sketchy wallpaper.\r\n\r\n5 quick click on the desktop could change the wallpaper immediately.",
+	"file" : "index.html",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"anime" : 
+			{
+				"index" : 3,
+				"order" : 103,
+				"text" : "Anime",
+				"type" : "bool",
+				"value" : true
+			},
+			"searchtext" : 
+			{
+				"index" : 1,
+				"order" : 101,
+				"text" : "Search String",
+				"type" : "textinput",
+				"value" : ""
+			},
+			"apikey" : 
+			{
+				"index" : 1,
+				"order" : 101,
+				"text" : "APIKEY",
+				"type" : "textinput",
+				"value" : ""
+			},
+			"general" : 
+			{
+				"index" : 2,
+				"order" : 102,
+				"text" : "General",
+				"type" : "bool",
+				"value" : true
+			},
+			"lestheight" : 
+			{
+				"index" : 9,
+				"order" : 109,
+				"text" : "Lest Height<br><small>use your screen height if empty</small>",
+				"type" : "textinput",
+				"value" : ""
+			},
+			"lestwidth" : 
+			{
+				"index" : 8,
+				"order" : 108,
+				"text" : "Lest Width<br><small>use your screen width if empty</small>",
+				"type" : "textinput",
+				"value" : ""
+			},
+			"nsfw" : 
+			{
+				"condition" : "apikey.value",
+				"index" : 7,
+				"order" : 107,
+				"text" : "NSFW",
+				"type" : "bool",
+				"value" : false
+			},
+			"people" : 
+			{
+				"index" : 4,
+				"order" : 104,
+				"text" : "People",
+				"type" : "bool",
+				"value" : true
+			},
+			"randominterval" : 
+			{
+				"fraction" : false,
+				"index" : 0,
+				"max" : 10080,
+				"min" : 0,
+				"order" : 100,
+				"text" : "Random Interval(min)<br><small>0 means not random</small>",
+				"type" : "slider",
+				"value" : 0
+			},
+			"ratio" : 
+			{
+				"index" : 10,
+				"options" : 
+				[
+					{
+						"label" : "All Wide",
+						"value" : "landscape"
+					},
+					{
+						"label" : "16 × 9",
+						"value" : "16x9"
+					},
+					{
+						"label" : "16 × 10",
+						"value" : "16x10"
+					},
+					{
+						"label" : "21 × 9",
+						"value" : "21x9"
+					},
+					{
+						"label" : "32 × 9",
+						"value" : "32x9"
+					},
+					{
+						"label" : "48 × 9",
+						"value" : "48x9"
+					},
+					{
+						"label" : "All Portrait",
+						"value" : "portrait"
+					},
+					{
+						"label" : "9 × 16",
+						"value" : "9x16"
+					},
+					{
+						"label" : "10 × 16",
+						"value" : "10x16"
+					},
+					{
+						"label" : "9 × 18",
+						"value" : "9x18"
+					},
+					{
+						"label" : "1 × 1",
+						"value" : "1x1"
+					},
+					{
+						"label" : "3 × 2",
+						"value" : "3x2"
+					},
+					{
+						"label" : "4 × 3",
+						"value" : "4x3"
+					}
+				],
+				"order" : 110,
+				"text" : "Ratio",
+				"type" : "combo",
+				"value" : "landscape"
+			},
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0 0 0"
+			},
+			"sfw" : 
+			{
+				"index" : 5,
+				"order" : 105,
+				"text" : "SFW",
+				"type" : "bool",
+				"value" : true
+			},
+			"sketchy" : 
+			{
+				"index" : 6,
+				"order" : 106,
+				"text" : "Sketchy",
+				"type" : "bool",
+				"value" : true
+			}
+		}
+	},
+	"preview" : "preview.jpg",
+	"tags" : [ "Unspecified" ],
+	"title" : "wallhaven",
+	"type" : "web",
+	"version" : 5,
+	"visibility" : "public",
+	"workshopid" : "2561179430",
+	"workshopurl" : "steam://url/CommunityFilePage/2561179430"
+}
