@@ -1,4 +1,4 @@
-let clickTimes = 0, clickTimeout = 0, wallpaperNum = 0, wallpaperPage = 1, selWallpapers = []
+let clickTimes = 0, clickTimeout = 0, wallpaperNum = 0, wallpaperPage = 1, selWallpapers = [], maxWallpaperPerPage = 24
 window.addEventListener('click', (event) => {
     clearTimeout(clickTimeout)
     if (++clickTimes >= 5) {
@@ -39,11 +39,12 @@ function getRandomInt(wallpaperCnt){
 
     let randomIndex = Math.floor(Math.random() * wallpaperCnt);
 
-    if(selWallpapers.includes(randomIndex) && (selWallpapers.length >= 24 || selWallpapers.length >= wallpaperCnt)){
+    if(selWallpapers.includes(randomIndex) && (selWallpapers.length >= maxWallpaperPerPage || selWallpapers.length >= wallpaperCnt)){
         return getRandomInt(wallpaperCnt);
     } else {
+        selWallpapers.push(randomIndex);
 
-        if(selWallpapers.length >= 24 || selWallpapers.length >= wallpaperCnt){
+        if(selWallpapers.length >= maxWallpaperPerPage || selWallpapers.length >= wallpaperCnt){
             selWallpapers = [];
 
             if(selWallpapers.length >= wallpaperCnt){
@@ -53,8 +54,6 @@ function getRandomInt(wallpaperCnt){
             }
             
         }
-
-        selWallpapers.push(randomIndex);
 
         return randomIndex;
     }
