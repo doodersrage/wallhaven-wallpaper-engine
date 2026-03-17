@@ -1,4 +1,4 @@
-let clickTimes = 0, clickTimeout = 0, wallpaperNum = 0, wallpaperUseCnt = 0, wallpaperPage = 1
+let clickTimes = 0, clickTimeout = 0, wallpaperNum = 0, wallpaperPage = 1, selWallpapers = []
 window.addEventListener('click', (event) => {
     clearTimeout(clickTimeout)
     if (++clickTimes >= 5) {
@@ -35,21 +35,39 @@ function resetInterval() {
     intervalTimeout = setTimeout(changeWallpaper, randominterval * 60000)
 }
 
+function getRandomInt(wallpaperCnt){
+
+    let randomIndex = Math.floor(Math.random() * wallpaperCnt);
+
+    if(selWallpapers.includes(randomIndex)){
+        return getRandomInt(wallpaperCnt);
+    } else {
+        selWallpapers.push(randomIndex);
+
+        if(selWallpapers.length >= 24 || selWallpapers.length >= wallpaperCnt){
+            selWallpapers = [];
+
+            if(selWallpapers.length >= wallpaperCnt){
+                wallpaperPage = 1;
+            } else {
+                wallpaperPage++;
+            }
+            
+        }
+
+        return randomIndex;
+    }
+ 
+}
+
 function changeWallpaper() {
     fetch(generateURL()).then((response) => {
         if (response.ok) {
             response.json().then((json) => {
-                let wallpaperCnt = json.data.length;
                 if(sortings == 'random'){
                     wallpaperNum = 0;
                 } else {
-                    if(wallpaperCnt == 0 || (wallpaperUseCnt >= wallpaperCnt && wallpaperCnt < 24)){
-                        wallpaperPage = 1;
-                        wallpaperUseCnt = 0;
-                    } else {
-                        wallpaperUseCnt++;
-                    }
-                    wallpaperNum = Math.floor(Math.random() * wallpaperCnt);
+                    wallpaperNum = getRandomInt(json.data.length);
                 }
                 document.querySelector('body').style = 'background: url("' + json.data[wallpaperNum].path + '") center center / cover no-repeat;'
                 if (randominterval) {
@@ -61,7 +79,8 @@ function changeWallpaper() {
         } else {
             console.log('fetch fail : ' + response.status + ' : ' + response.statusText + ', retry after 1 min.')
             clearTimeout(intervalTimeout)
-            intervalTimeout = setTimeout(changeWallpaper, 60000)
+            //intervalTimeout = setTimeout(changeWallpaper, 60000)
+            changeWallpaper()
         }
     })
 }
@@ -74,15 +93,9 @@ function generateURL() {
 
     if(sortings == 'random'){
         url.searchParams.set('seed', 'p5&Iw8');
-        wallpaperUseCnt = 0;
         wallpaperPage = 1;
-    } else {
-        if(wallpaperUseCnt > 24){
-            wallpaperUseCnt = 0;
-            wallpaperPage++;
-            url.searchParams.set('page', wallpaperPage);
-        }
     }
+    url.searchParams.set('page', wallpaperPage);
 
     let categoriesParam = ''
     if (searchText) {
