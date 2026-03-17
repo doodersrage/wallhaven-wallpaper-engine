@@ -39,10 +39,9 @@ function getRandomInt(wallpaperCnt){
 
     let randomIndex = Math.floor(Math.random() * wallpaperCnt);
 
-    if(selWallpapers.includes(randomIndex)){
+    if(selWallpapers.includes(randomIndex) && (selWallpapers.length >= 24 || selWallpapers.length >= wallpaperCnt)){
         return getRandomInt(wallpaperCnt);
     } else {
-        selWallpapers.push(randomIndex);
 
         if(selWallpapers.length >= 24 || selWallpapers.length >= wallpaperCnt){
             selWallpapers = [];
@@ -54,6 +53,8 @@ function getRandomInt(wallpaperCnt){
             }
             
         }
+
+        selWallpapers.push(randomIndex);
 
         return randomIndex;
     }
