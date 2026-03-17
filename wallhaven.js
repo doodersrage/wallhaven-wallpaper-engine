@@ -1,4 +1,4 @@
-let clickTimes = 0, clickTimeout = 0
+let clickTimes = 0, clickTimeout = 0, wallpaperNum = 0, wallpaperUseCnt = 0, wallpaperPage = 1
 window.addEventListener('click', (event) => {
     clearTimeout(clickTimeout)
     if (++clickTimes >= 5) {
@@ -39,12 +39,24 @@ function changeWallpaper() {
     fetch(generateURL()).then((response) => {
         if (response.ok) {
             response.json().then((json) => {
-                document.querySelector('body').style = 'background: url("' + json.data[0].path + '") center center / cover no-repeat;'
+                let wallpaperCnt = json.data.length;
+                if(sortings == 'random'){
+                    wallpaperNum = 0;
+                } else {
+                    if(wallpaperCnt == 0 || (wallpaperUseCnt >= wallpaperCnt && wallpaperCnt < 24)){
+                        wallpaperPage = 1;
+                        wallpaperUseCnt = 0;
+                    } else {
+                        wallpaperUseCnt++;
+                    }
+                    wallpaperNum = Math.floor(Math.random() * wallpaperCnt);
+                }
+                document.querySelector('body').style = 'background: url("' + json.data[wallpaperNum].path + '") center center / cover no-repeat;'
                 if (randominterval) {
                     resetInterval()
                 }
                 localStorage.setItem('time', Date.now())
-                localStorage.setItem('paperPath', json.data[0].path)
+                localStorage.setItem('paperPath', json.data[wallpaperNum].path)
             })
         } else {
             console.log('fetch fail : ' + response.status + ' : ' + response.statusText + ', retry after 1 min.')
@@ -56,7 +68,21 @@ function changeWallpaper() {
 
 function generateURL() {
     let url = new URL('https://wallhaven.cc/api/v1/search?purity=')
-    url.searchParams.set('sorting', 'random')
+    //url.searchParams.set('sorting', 'random')
+
+    url.searchParams.set('sorting', sortings)
+
+    if(sortings == 'random'){
+        url.searchParams.set('seed', 'p5&Iw8');
+        wallpaperUseCnt = 0;
+        wallpaperPage = 1;
+    } else {
+        if(wallpaperUseCnt > 24){
+            wallpaperUseCnt = 0;
+            wallpaperPage++;
+            url.searchParams.set('page', wallpaperPage);
+        }
+    }
 
     let categoriesParam = ''
     if (searchText) {
@@ -110,5 +136,6 @@ function generateURL() {
     if (apikey) {
         url.searchParams.set('apikey', apikey)
     }
+
     return url
 }

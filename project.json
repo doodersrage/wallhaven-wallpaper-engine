@@ -82,6 +82,41 @@
 				"type" : "slider",
 				"value" : 0
 			},
+			"sortings" : 
+			{
+				"index" : 10,
+				"options" : 
+				[
+					{
+						"label" : "date_added",
+						"value" : "date_added"
+					},
+					{
+						"label" : "relevance",
+						"value" : "relevance"
+					},
+					{
+						"label" : "random",
+						"value" : "random"
+					},
+					{
+						"label" : "views",
+						"value" : "views"
+					},
+					{
+						"label" : "favorites",
+						"value" : "favorites"
+					},
+					{
+						"label" : "toplist",
+						"value" : "toplist"
+					}
+				],
+				"order" : 110,
+				"text" : "Sorting",
+				"type" : "combo",
+				"value" : "random"
+			},
 			"ratio" : 
 			{
 				"index" : 10,

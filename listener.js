@@ -22,6 +22,9 @@ window.wallpaperPropertyListener = {
                 resetInterval()
             }
         }
+        if (properties.sortings) {
+            sortings = properties.sortings.value
+        }
         if (properties.searchtext) {
             searchText = properties.searchtext.value
         }
@@ -51,6 +54,9 @@ window.wallpaperPropertyListener = {
         }
         if (properties.lestheight) {
             lestheight = properties.lestheight.value
+        }
+        if (properties.ratio) {
+            ratio = properties.ratio.value
         }
         if (properties.ratio) {
             ratio = properties.ratio.value
