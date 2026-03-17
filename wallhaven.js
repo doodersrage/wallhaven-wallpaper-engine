@@ -79,8 +79,8 @@ function changeWallpaper() {
         } else {
             console.log('fetch fail : ' + response.status + ' : ' + response.statusText + ', retry after 1 min.')
             clearTimeout(intervalTimeout)
-            //intervalTimeout = setTimeout(changeWallpaper, 60000)
-            changeWallpaper()
+            intervalTimeout = setTimeout(changeWallpaper, 60000)
+            //changeWallpaper()
         }
     })
 }
