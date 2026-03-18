@@ -73,8 +73,11 @@ async function fetchAPIData(){
         if (response.ok) {
             const json = await response.json();
 
-            let storageData = JSON.stringify([wallpaperPage, sortings, json]);
-            localStorage.setItem('json'+String(windowID), storageData);
+            // do not store for random search
+            if(sortings != 'random'){
+                let storageData = JSON.stringify([wallpaperPage, sortings, json]);
+                localStorage.setItem('json'+String(windowID), storageData);
+            }
 
             return json;
         } else {
