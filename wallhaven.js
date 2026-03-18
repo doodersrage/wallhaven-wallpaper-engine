@@ -40,7 +40,7 @@ function getRandomInt(wallpaperCnt){
 
     let randomIndex = Math.floor(Math.random() * wallpaperCnt);
 
-    if(selWallpapers.includes(randomIndex) && (selWallpapers.length >= maxWallpaperPerPage || selWallpapers.length >= wallpaperCnt)){
+    if(selWallpapers.includes(randomIndex) && (selWallpapers.length <= maxWallpaperPerPage || selWallpapers.length <= wallpaperCnt)){
         return getRandomInt(wallpaperCnt);
     } else {
         selWallpapers.push(randomIndex);
