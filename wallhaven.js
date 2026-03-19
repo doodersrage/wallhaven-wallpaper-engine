@@ -36,6 +36,19 @@ function resetInterval() {
     intervalTimeout = setTimeout(changeWallpaper, randominterval * 60000);
 }
 
+function setPageNum(wallpaperCnt){
+    if(selWallpapers.length >= maxWallpaperPerPage || selWallpapers.length >= wallpaperCnt){
+        selWallpapers = [];
+
+        if(selWallpapers.length >= wallpaperCnt){
+            wallpaperPage = 1;
+        } else {
+            wallpaperPage++;
+        }
+        
+    }
+}
+
 function getRandomInt(wallpaperCnt){
 
     let randomIndex = Math.floor(Math.random() * wallpaperCnt);
@@ -44,17 +57,6 @@ function getRandomInt(wallpaperCnt){
         return getRandomInt(wallpaperCnt);
     } else {
         selWallpapers.push(randomIndex);
-
-        if(selWallpapers.length >= maxWallpaperPerPage || selWallpapers.length >= wallpaperCnt){
-            selWallpapers = [];
-
-            if(selWallpapers.length >= wallpaperCnt){
-                wallpaperPage = 1;
-            } else {
-                wallpaperPage++;
-            }
-            
-        }
 
         return randomIndex;
     }
@@ -136,6 +138,9 @@ async function changeWallpaper() {
                 if(wallpaperNum > maxWallpaperPerPage) wallpaperNum = 0;
             break;
         }
+
+        setPageNum(apiData.data.length);
+
         wallpaperNum = getRandomInt(apiData.data.length);
 
         document.querySelector('body').style = 'background: url("' + apiData.data[wallpaperNum].path + '") center center / cover no-repeat;';
