@@ -57,25 +57,15 @@ function resetInterval() {
 }
 
 function setPageNum(wallpaperCnt){
-    if(localSortings == 'random'){
-        if(lastPage == wallpaperPage && (((wallpaperPage-1)*maxWallpaperPerPage)+selWallpapers.length >= totalWallpapers)){
-            selWallpapers = [];
-            wallpaperPage = 1;
-        } else {
-            if(selWallpapers.length >= maxWallpaperPerPage){
-                selWallpapers = [];
-                wallpaperPage++;
-            }
-        }
+    let curWallPaperCnt = (localSortings == 'random' ? selWallpapers.length : wallpaperNum);
+
+    if(lastPage == wallpaperPage && (((wallpaperPage-1)*maxWallpaperPerPage)+curWallPaperCnt >= totalWallpapers)){
+        selWallpapers = [];
+        wallpaperPage = 1;
     } else {
-        if(lastPage == wallpaperPage && (((wallpaperPage-1)*maxWallpaperPerPage)+wallpaperNum >= totalWallpapers)){
+        if(curWallPaperCnt >= maxWallpaperPerPage){
             selWallpapers = [];
-            wallpaperPage = 1;
-        } else {
-            if(wallpaperNum >= maxWallpaperPerPage){
-                selWallpapers = [];
-                wallpaperPage++;
-            }
+            wallpaperPage++;
         }
     }
 }
