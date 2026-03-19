@@ -39,19 +39,43 @@ function init() {
     }
 }
 
+function resetSlideshow() {
+    localStorage.removeItem('json'+String(windowID));
+
+    wallpaperPage = 1;
+    wallpaperNum = 0;
+    lastPage = 0;
+    totalWallpapers = 0;
+    selWallpapers = [];
+
+    changeWallpaper();
+}
+
 function resetInterval() {
     clearTimeout(intervalTimeout);
     intervalTimeout = setTimeout(changeWallpaper, randominterval * 60000);
 }
 
 function setPageNum(wallpaperCnt){
-    if(lastPage == wallpaperPage && (selWallpapers.length+((lastPage-1)*maxWallpaperPerPage) >= totalWallpapers)){
-        selWallpapers = [];
-        wallpaperPage = 1;
-    } else {
-        if(selWallpapers.length >= maxWallpaperPerPage || selWallpapers.length >= wallpaperCnt){
+    if(localSortings == 'random'){
+        if(lastPage == wallpaperPage && (((wallpaperPage-1)*maxWallpaperPerPage)+selWallpapers.length >= totalWallpapers)){
             selWallpapers = [];
-            wallpaperPage++;
+            wallpaperPage = 1;
+        } else {
+            if(selWallpapers.length >= maxWallpaperPerPage){
+                selWallpapers = [];
+                wallpaperPage++;
+            }
+        }
+    } else {
+        if(lastPage == wallpaperPage && (((wallpaperPage-1)*maxWallpaperPerPage)+wallpaperNum >= totalWallpapers)){
+            selWallpapers = [];
+            wallpaperPage = 1;
+        } else {
+            if(wallpaperNum >= maxWallpaperPerPage){
+                selWallpapers = [];
+                wallpaperPage++;
+            }
         }
     }
 }
@@ -151,9 +175,9 @@ async function changeWallpaper() {
 
         setPageNum(apiData.data.length);
 
-        wallpaperNum = getRandomInt(apiData.data.length);
-
         document.querySelector('body').style = 'background: url("' + (apiData.data[wallpaperNum].large ? apiData.data[wallpaperNum].large : apiData.data[wallpaperNum].path) + '") center center / cover no-repeat;';
+        // used for debugging
+        //document.querySelector('body').innerHTML = JSON.stringify(apiData.meta)+' current: '+wallpaperNum +' localSort: '+localSortings;
 
         if (randominterval) {
             resetInterval();

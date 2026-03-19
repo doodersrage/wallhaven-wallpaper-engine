@@ -69,12 +69,11 @@ window.wallpaperPropertyListener = {
         if (properties.ratio) {
             ratio = properties.ratio.value;
         }
-        if (properties.ratio) {
-            ratio = properties.ratio.value;
-        }
         if (firstTime) {
             firstTime = false;
             init();
+        } else {
+            resetSlideshow();
         }
     },
     setPaused: function(isPaused) {
