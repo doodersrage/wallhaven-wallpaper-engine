@@ -1,4 +1,4 @@
-let windowID = Math.floor(Math.random() * 9999), clickTimes = 0, clickTimeout = 0, wallpaperNum = 0, wallpaperPage = 1, selWallpapers = [], maxWallpaperPerPage = 24;
+let windowID = Math.floor(Math.random() * 9999), clickTimes = 0, clickTimeout = 0, wallpaperNum = 0, wallpaperPage = 1, lastPage = 0, totalWallpapers = 0, selWallpapers = [], maxWallpaperPerPage = 24;
 
 window.addEventListener('click', (event) => {
     clearTimeout(clickTimeout);
@@ -37,15 +37,14 @@ function resetInterval() {
 }
 
 function setPageNum(wallpaperCnt){
-    if(selWallpapers.length >= maxWallpaperPerPage || selWallpapers.length >= wallpaperCnt){
+    if(lastPage == wallpaperPage && (selWallpapers.length+((lastPage-1)*maxWallpaperPerPage) >= totalWallpapers)){
         selWallpapers = [];
-
-        if(selWallpapers.length >= wallpaperCnt){
-            wallpaperPage = 1;
-        } else {
+        wallpaperPage = 1;
+    } else {
+        if(selWallpapers.length >= maxWallpaperPerPage || selWallpapers.length >= wallpaperCnt){
+            selWallpapers = [];
             wallpaperPage++;
         }
-        
     }
 }
 
@@ -78,6 +77,9 @@ async function fetchAPIData(){
             // do not store for random search
             let storageData = JSON.stringify([wallpaperPage, sortings, json]);
             localStorage.setItem('json'+String(windowID), storageData);
+
+            lastPage = json.meta.last_page;
+            totalWallpapers = json.meta.total;
 
             return json;
         } else {
@@ -143,7 +145,8 @@ async function changeWallpaper() {
 
         wallpaperNum = getRandomInt(apiData.data.length);
 
-        document.querySelector('body').style = 'background: url("' + apiData.data[wallpaperNum].path + '") center center / cover no-repeat;';
+        document.querySelector('body').style = 'background: url("' + (apiData.data[wallpaperNum].large ? apiData.data[wallpaperNum].large : apiData.data[wallpaperNum].path) + '") center center / cover no-repeat;';
+
         if (randominterval) {
             resetInterval();
         }
