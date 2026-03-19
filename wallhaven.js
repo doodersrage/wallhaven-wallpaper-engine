@@ -74,10 +74,8 @@ async function fetchAPIData(){
             const json = await response.json();
 
             // do not store for random search
-            if(sortings != 'random'){
-                let storageData = JSON.stringify([wallpaperPage, sortings, json]);
-                localStorage.setItem('json'+String(windowID), storageData);
-            }
+            let storageData = JSON.stringify([wallpaperPage, sortings, json]);
+            localStorage.setItem('json'+String(windowID), storageData);
 
             return json;
         } else {
@@ -97,12 +95,6 @@ async function fetchAPIData(){
 
  async function getAPIData(){
     let apiData;
-
-    // pull api data everytime when sorting by random
-    if(sortings == 'random'){
-        apiData = await fetchAPIData();
-        return apiData;
-    }
 
     // check cache for all other sort types
     apiData = localStorage.getItem('json'+String(windowID));
@@ -129,11 +121,23 @@ async function changeWallpaper() {
     const apiData = await getAPIData();
 
     if(apiData){
-        if(sortings == 'random'){
-            wallpaperNum = 0;
-        } else {
-            wallpaperNum = getRandomInt(apiData.data.length);
+
+        switch(localSortings){
+            case 'random':
+                wallpaperNum = getRandomInt(apiData.data.length);
+            break;
+            case 'descending':
+                wallpaperNum--;
+                if(wallpaperNum < 0) wallpaperNum = maxWallpaperPerPage;
+            break;
+            case 'ascending':
+            default:
+                wallpaperNum++;
+                if(wallpaperNum > maxWallpaperPerPage) wallpaperNum = 0;
+            break;
         }
+        wallpaperNum = getRandomInt(apiData.data.length);
+
         document.querySelector('body').style = 'background: url("' + apiData.data[wallpaperNum].path + '") center center / cover no-repeat;';
         if (randominterval) {
             resetInterval();
@@ -148,10 +152,10 @@ function generateURL() {
     //url.searchParams.set('sorting', 'random');
 
     url.searchParams.set('sorting', sortings);
+    url.searchParams.set('order', order);
 
     if(sortings == 'random'){
         url.searchParams.set('seed', 'p5&Iw8');
-        wallpaperPage = 1;
     }
     url.searchParams.set('page', wallpaperPage);
 

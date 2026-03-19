@@ -25,6 +25,12 @@ window.wallpaperPropertyListener = {
         if (properties.sortings) {
             sortings = properties.sortings.value
         }
+        if (properties.localSortings) {
+            localSortings = properties.localSortings.value
+        }
+        if (properties.order) {
+            order = properties.order.value
+        }
         if (properties.searchtext) {
             searchText = properties.searchtext.value
         }

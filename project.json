@@ -113,9 +113,51 @@
 					}
 				],
 				"order" : 110,
-				"text" : "Sorting",
+				"text" : "API Sorting",
 				"type" : "combo",
 				"value" : "random"
+			},
+			"localSortings" : 
+			{
+				"index" : 10,
+				"options" : 
+				[
+					{
+						"label" : "ascending",
+						"value" : "ascending"
+					},
+					{
+						"label" : "descending",
+						"value" : "descending"
+					},
+					{
+						"label" : "random",
+						"value" : "random"
+					}
+				],
+				"order" : 111,
+				"text" : "Local Sorting",
+				"type" : "combo",
+				"value" : "ascending"
+			},
+			"order" : 
+			{
+				"index" : 10,
+				"options" : 
+				[
+					{
+						"label" : "ascending",
+						"value" : "asc"
+					},
+					{
+						"label" : "descending",
+						"value" : "desc"
+					}
+				],
+				"order" : 111,
+				"text" : "API Order",
+				"type" : "combo",
+				"value" : "desc"
 			},
 			"ratio" : 
 			{
@@ -175,7 +217,7 @@
 						"value" : "4x3"
 					}
 				],
-				"order" : 110,
+				"order" : 112,
 				"text" : "Ratio",
 				"type" : "combo",
 				"value" : "landscape"
