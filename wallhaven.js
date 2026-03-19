@@ -56,8 +56,21 @@ function resetInterval() {
     intervalTimeout = setTimeout(changeWallpaper, randominterval * 60000);
 }
 
-function setPageNum(wallpaperCnt){
-    let curWallPaperCnt = (localSortings == 'random' ? selWallpapers.length : wallpaperNum);
+function setPageNum(){
+    let curWallPaperCnt = 0;
+
+    switch(localSortings){
+        case 'random':
+            curWallPaperCnt = selWallpapers.length;
+        break;
+        case 'descending':
+            curWallPaperCnt = maxWallpaperPerPage-wallpaperNum;
+        break;
+        case 'ascending':
+        default:
+            curWallPaperCnt = wallpaperNum;
+        break;
+    }
 
     if(lastPage == wallpaperPage && (((wallpaperPage-1)*maxWallpaperPerPage)+curWallPaperCnt >= totalWallpapers)){
         selWallpapers = [];
@@ -163,7 +176,7 @@ async function changeWallpaper() {
             break;
         }
 
-        setPageNum(apiData.data.length);
+        setPageNum();
 
         document.querySelector('body').style = 'background: url("' + (apiData.data[wallpaperNum].large ? apiData.data[wallpaperNum].large : apiData.data[wallpaperNum].path) + '") center center / cover no-repeat;';
         // used for debugging
