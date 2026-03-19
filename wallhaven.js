@@ -1,4 +1,13 @@
-let windowID = Math.floor(Math.random() * 9999), clickTimes = 0, clickTimeout = 0, wallpaperNum = 0, wallpaperPage = 1, lastPage = 0, totalWallpapers = 0, selWallpapers = [], maxWallpaperPerPage = 24;
+let windowID = Math.floor(Math.random() * 9999), 
+    clickTimes = 0, 
+    clickTimeout = 0, 
+    wallpaperNum = 0, 
+    wallpaperPage = 1, 
+    lastPage = 0, 
+    totalWallpapers = 0, 
+    selWallpapers = [], 
+    maxWallpaperPerPage = 24,
+    intervalTimeout = 0;
 
 window.addEventListener('click', (event) => {
     clearTimeout(clickTimeout);
@@ -12,10 +21,9 @@ window.addEventListener('click', (event) => {
     }, 300);
 });
 
-var intervalTimeout = 0;
 function init() {
-    let lastTime = localStorage.getItem('time');
-    let paperPath = localStorage.getItem('paperPath');
+    const lastTime = localStorage.getItem('time'),
+        paperPath = localStorage.getItem('paperPath');
     if (lastTime && paperPath) {
         if (randominterval) {
             let pastTime = Date.now() - lastTime;
@@ -50,7 +58,7 @@ function setPageNum(wallpaperCnt){
 
 function getRandomInt(wallpaperCnt){
 
-    let randomIndex = Math.floor(Math.random() * wallpaperCnt);
+    const randomIndex = Math.floor(Math.random() * wallpaperCnt);
 
     if(selWallpapers.includes(randomIndex) && (selWallpapers.length <= maxWallpaperPerPage || selWallpapers.length <= wallpaperCnt)){
         return getRandomInt(wallpaperCnt);
@@ -151,7 +159,7 @@ async function changeWallpaper() {
             resetInterval();
         }
         localStorage.setItem('time', Date.now());
-        localStorage.setItem('paperPath', apiData.data[wallpaperNum].path);
+        localStorage.setItem('paperPath', (apiData.data[wallpaperNum].large ? apiData.data[wallpaperNum].large : apiData.data[wallpaperNum].path));
     }
 }
 
