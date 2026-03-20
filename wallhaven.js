@@ -167,7 +167,13 @@ async function changeWallpaper() {
             break;
             case 'descending':
                 wallpaperNum--;
-                if(wallpaperNum < 0) wallpaperNum = maxWallpaperPerPage;
+                if(wallpaperNum < 0){
+                    if(lastPage == wallpaperPage){
+                        wallpaperNum = (totalWallpapers-((lastPage-1)*maxWallpaperPerPag))
+                    } else {
+                        wallpaperNum = maxWallpaperPerPage;
+                    }
+                }
             break;
             case 'ascending':
             default:
