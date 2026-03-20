@@ -80,7 +80,7 @@ window.wallpaperPropertyListener = {
         if (isPaused) {
             clearTimeout(intervalTimeout);
         } else {
-            init();
+            changeWallpaper();
         }
     }
 };

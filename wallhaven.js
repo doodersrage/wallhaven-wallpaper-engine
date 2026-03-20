@@ -23,7 +23,7 @@ window.addEventListener('click', (event) => {
 
 function init() {
     const lastTime = localStorage.getItem('time'),
-        paperPath = localStorage.getItem('paperPath');
+        paperPath = localStorage.getItem('paperPath'+String(windowID));
     if (lastTime && paperPath) {
         if (randominterval) {
             let pastTime = Date.now() - lastTime;
@@ -192,7 +192,7 @@ async function changeWallpaper() {
             resetInterval();
         }
         localStorage.setItem('time', Date.now());
-        localStorage.setItem('paperPath', (apiData.data[wallpaperNum].large ? apiData.data[wallpaperNum].large : apiData.data[wallpaperNum].path));
+        localStorage.setItem('paperPath'+String(windowID), (apiData.data[wallpaperNum].large ? apiData.data[wallpaperNum].large : apiData.data[wallpaperNum].path));
     }
 }
 
