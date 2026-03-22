@@ -4,7 +4,8 @@ let windowID = Math.floor(Math.random() * 9999),
     wallpaperNum = 0, 
     wallpaperPage = 1, 
     lastPage = 0, 
-    totalWallpapers = 0, 
+    totalWallpapers = 0,
+    totalWallpaperCnt = 0, 
     selWallpapers = [], 
     maxWallpaperPerPage = 24,
     intervalTimeout = 0;
@@ -177,12 +178,14 @@ async function changeWallpaper() {
             break;
             case 'ascending':
             default:
-                wallpaperNum++;
+                if(totalWallpaperCnt > 0) wallpaperNum++;
                 if(wallpaperNum > maxWallpaperPerPage) wallpaperNum = 0;
             break;
         }
 
         setPageNum();
+
+        totalWallpaperCnt++;
 
         document.querySelector('body').style = 'background: url("' + (apiData.data[wallpaperNum].large ? apiData.data[wallpaperNum].large : apiData.data[wallpaperNum].path) + '") center center / cover no-repeat;';
         // used for debugging
